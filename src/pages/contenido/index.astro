@@ -1,0 +1,99 @@
+---
+// src/pages/contenido/index.astro
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Section from '../../components/ui/Section.astro';
+import Container from '../../components/ui/Container.astro';
+import Card from '../../components/ui/Card.astro';
+import Badge from '../../components/ui/Badge.astro';
+import { BookOpen, Calendar, ArrowRight } from 'lucide-astro';
+
+// 1. Obtenemos todos los tutoriales que NO sean borradores (draft: false)
+const tutoriales = await getCollection('tutoriales', ({ data }) => {
+  return data.draft !== true;
+});
+
+// 2. Los ordenamos por fecha (del más reciente al más antiguo)
+const tutorialesOrdenados = tutoriales.sort(
+  (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
+);
+
+// Función auxiliar para formatear la fecha a un formato legible
+const formatearFecha = (fecha: Date) => {
+  return fecha.toLocaleDateString('es-ES', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric'
+  });
+};
+---
+
+<BaseLayout 
+  title="Tutoriales Técnicos" 
+  description="Aprende a automatizar procesos e implementar sistemas eficientes en tu empresa con los tutoriales técnicos de Gino Cotos."
+>
+  
+  <header class="bg-primary pt-32 pb-20 text-light border-b border-primary/20">
+    <Container>
+      <div class="max-w-3xl">
+        <Badge class="mb-6 bg-light/10 text-accent border-none">
+          <BookOpen class="w-4 h-4" />
+          Recursos Gratuitos
+        </Badge>
+        <h1 class="text-4xl md:text-5xl lg:text-6xl font-heading font-bold mb-6 leading-tight">
+          Tutoriales y Estrategia <span class="text-accent">Tecnológica</span>
+        </h1>
+        <p class="text-lg text-light/80 leading-relaxed max-w-2xl">
+          Guías paso a paso, arquitecturas de sistemas y tácticas de automatización para fundadores y equipos técnicos que buscan escalar sin fricción.
+        </p>
+      </div>
+    </Container>
+  </header>
+
+  <Section class="bg-light bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] [background-size:16px_16px]">
+    <Container>
+      
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {tutorialesOrdenados.map(post => (
+          <Card class="group flex flex-col h-full hover:border-accent/50 transition-all duration-300 hover:shadow-lg bg-white relative top-0 hover:-top-2">
+            
+            <div class="flex justify-between items-start mb-6 gap-2">
+              <div class="flex flex-wrap gap-2">
+                {post.data.tags.slice(0, 2).map(tag => (
+                  <span class="px-2.5 py-1 bg-primary/5 text-primary text-xs font-bold rounded-md tracking-wide uppercase">
+                    {tag}
+                  </span>
+                ))}
+              </div>
+            </div>
+            
+            <div class="mb-6 flex-grow">
+              <h2 class="text-2xl font-heading font-bold text-primary mb-3 group-hover:text-accent transition-colors leading-snug">
+                <a href={`/contenido/${post.slug}`}>
+                  {post.data.title}
+                  <span class="absolute inset-0"></span>
+                </a>
+              </h2>
+              <p class="text-dark/70 leading-relaxed text-sm">
+                {post.data.description}
+              </p>
+            </div>
+            
+            <div class="mt-auto pt-5 border-t border-primary/10 flex items-center justify-between">
+              <div class="flex items-center text-xs text-dark/50 font-medium">
+                <Calendar class="w-3.5 h-3.5 mr-1.5" />
+                {formatearFecha(post.data.pubDate)}
+              </div>
+              <span class="text-accent flex items-center font-bold text-sm group-hover:translate-x-1 transition-transform">
+                Leer más <ArrowRight class="w-4 h-4 ml-1" />
+              </span>
+            </div>
+            
+          </Card>
+        ))}
+      </div>
+
+    </Container>
+  </Section>
+
+</BaseLayout>

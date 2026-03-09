@@ -1,0 +1,155 @@
+---
+// src/pages/servicios.astro
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Section from '../components/ui/Section.astro';
+import Container from '../components/ui/Container.astro';
+import Card from '../components/ui/Card.astro';
+import CTA from '../components/sections/CTA.astro';
+import { Settings, Zap, Database, TrendingUp, CheckCircle2, Cpu } from 'lucide-astro';
+
+const servicios = [
+  {
+    id: "optimizacion",
+    title: "Optimización de Procesos",
+    icon: Settings,
+    description: "Audito tus flujos de trabajo actuales para identificar cuellos de botella y redundancias. Rediseñamos la forma en que tu equipo opera para hacer más con menos.",
+    benefits: ["Reducción de costos operativos", "Estandarización de tareas", "Mayor claridad para el equipo"]
+  },
+  {
+    id: "automatizacion",
+    title: "Automatización Inteligente",
+    icon: Zap,
+    description: "Conecto tus herramientas (CRM, ERP, Facturación, Emails) para que la información fluya sin intervención humana. Los robots hacen el trabajo aburrido; tu equipo hace el trabajo estratégico.",
+    benefits: ["Ahorro de hasta 20h semanales por empleado", "Cero errores de transcripción manual", "Respuestas en tiempo real"]
+  },
+  {
+    id: "sistemas",
+    title: "Implementación de Sistemas",
+    icon: Database,
+    description: "Si el software empaquetado no resuelve tu problema, diseño e implemento arquitecturas a medida. Construyo el núcleo tecnológico sobre el cual tu empresa puede escalar.",
+    benefits: ["Software adaptado a tu negocio", "Arquitectura escalable y segura", "Independencia tecnológica"]
+  },
+  {
+    id: "estrategia",
+    title: "Tecnología para Negocios",
+    icon: TrendingUp,
+    description: "Actúo como tu CTO fraccional. Traduzco tus objetivos de negocio en una hoja de ruta tecnológica clara, evaluando qué herramientas comprar, cuáles construir y cómo integrarlas.",
+    benefits: ["Decisiones de inversión seguras", "Alineación negocio y tecnología", "Ventaja competitiva en tu sector"]
+  }
+];
+
+const proceso = [
+  { step: "01", name: "Diagnóstico", desc: "Mapeamos tu caos actual y detectamos las fugas de tiempo y dinero." },
+  { step: "02", name: "Arquitectura", desc: "Diseñamos el sistema o flujo de trabajo ideal para tus objetivos." },
+  { step: "03", name: "Implementación", desc: "Construimos, conectamos y probamos la solución en tu entorno real." },
+  { step: "04", name: "Despliegue", desc: "Capacitamos a tu equipo para que dominen el nuevo sistema." }
+];
+---
+
+<BaseLayout 
+  title="Servicios | Gino Cotos" 
+  description="Servicios de optimización, automatización y desarrollo de sistemas para startups."
+>
+
+  <header class="bg-primary pt-32 pb-16 md:pt-40 md:pb-24 text-light overflow-hidden relative">
+    <Container>
+      <div class="flex flex-col md:flex-row items-center justify-between gap-12 relative z-10">
+        
+        <div class="max-w-3xl w-full">
+          <h1 class="text-6xl md:text-7xl lg:text-8xl font-heading font-black mb-6 text-light tracking-tight uppercase leading-none">
+            Servicios<span class="text-accent">.</span>
+          </h1>
+          <p class="text-xl md:text-2xl text-light/80 leading-relaxed font-medium max-w-2xl">
+            No solo escribo código. Construyo sistemas y automatizaciones que devuelven el tiempo a los fundadores y permiten a las startups escalar sin fricción.
+          </p>
+        </div>
+
+        <div class="hidden md:flex justify-center items-center w-full md:w-auto pr-10">
+          <div class="relative flex items-center justify-center animate-float">
+            <div class="absolute inset-0 bg-accent/20 rounded-full blur-3xl w-40 h-40"></div>
+            <Cpu class="w-40 h-40 text-accent opacity-90 drop-shadow-2xl" stroke-width="1.5" />
+          </div>
+        </div>
+
+      </div>
+    </Container>
+  </header>
+
+  <Section class="bg-light pt-20 pb-24">
+    <Container>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+        {servicios.map((servicio) => (
+          <Card class="flex flex-col h-full border border-primary/10 shadow-sm hover:shadow-xl transition-all duration-300 p-8 md:p-10 bg-white">
+            
+            <div class="flex items-center gap-5 mb-6">
+              <servicio.icon class="w-10 h-10 text-primary" stroke-width="2" />
+              <h2 class="text-2xl md:text-3xl font-heading font-bold text-primary leading-tight">
+                {servicio.title}
+              </h2>
+            </div>
+            
+            <p class="text-dark/70 text-lg leading-relaxed mb-8 flex-grow">
+              {servicio.description}
+            </p>
+            
+            <div class="bg-light rounded-xl p-6 mt-auto border border-primary/5">
+              <h3 class="text-sm font-bold text-primary uppercase tracking-widest mb-4">Resultados Clave:</h3>
+              <ul class="space-y-3">
+                {servicio.benefits.map(benefit => (
+                  <li class="flex items-start">
+                    <CheckCircle2 class="w-5 h-5 text-accent mr-3 flex-shrink-0 mt-0.5" />
+                    <span class="text-dark/80 font-medium">{benefit}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+          </Card>
+        ))}
+      </div>
+    </Container>
+  </Section>
+
+  <Section class="bg-primary border-y border-primary/20 pb-28">
+    <Container>
+      
+      <div class="text-center max-w-3xl mx-auto mb-16">
+        <h2 class="text-4xl md:text-5xl font-heading font-bold mb-6 text-light">Cómo transformamos tu empresa</h2>
+        <p class="text-light/70 text-xl">Un proceso estructurado, predecible y enfocado 100% en el retorno de inversión.</p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        {proceso.map(fase => (
+          <div class="bg-white rounded-xl p-8 shadow-lg relative overflow-hidden group hover:-translate-y-2 transition-transform duration-300 cursor-default">
+            
+            <div class="absolute -top-4 -right-4 text-[8rem] font-heading font-black text-primary/0 group-hover:text-primary/10 transition-colors duration-500 pointer-events-none select-none leading-none z-0">
+              {fase.step}
+            </div>
+            
+            <div class="relative z-10">
+              <h3 class="text-2xl font-bold text-primary mb-4">{fase.name}</h3>
+              <p class="text-dark/70 text-base leading-relaxed">{fase.desc}</p>
+            </div>
+
+          </div>
+        ))}
+      </div>
+
+    </Container>
+  </Section>
+
+  <CTA />
+
+</BaseLayout>
+
+<style>
+  .animate-float {
+    animation: float 6s ease-in-out infinite;
+  }
+  
+  @keyframes float {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-15px); }
+    100% { transform: translateY(0px); }
+  }
+</style>

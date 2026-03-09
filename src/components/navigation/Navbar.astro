@@ -1,0 +1,51 @@
+---
+// src/components/navigation/Navbar.astro
+import Container from '../ui/Container.astro';
+import Button from '../ui/Button.astro';
+import { Menu } from 'lucide-astro';
+
+// Centralizamos las rutas para fácil mantenimiento
+const navLinks = [
+  { name: 'Servicios', href: '/servicios' },
+  { name: 'Proyectos', href: '/proyectos' },
+  { name: 'Tutoriales', href: '/contenido' },
+  { name: 'Sobre mí', href: '/sobre-mi' },
+];
+---
+
+<header class="sticky top-0 z-50 w-full bg-light/90 backdrop-blur-md border-b border-primary/10 transition-all duration-300">
+  <Container>
+    <div class="flex items-center justify-between h-20">
+      
+      <a href="/" class="font-heading font-bold text-2xl text-primary tracking-tight">
+        Gino<span class="text-accent">.</span>
+      </a>
+
+      <nav class="hidden md:flex items-center gap-8">
+        <ul class="flex items-center gap-6">
+          {navLinks.map(link => (
+            <li>
+              <a href={link.href} class="text-dark/80 hover:text-primary font-medium transition-colors text-sm">
+                {link.name}
+              </a>
+            </li>
+          ))}
+        </ul>
+        
+        <div class="flex items-center gap-4 border-l border-primary/20 pl-6">
+          <a href="/contacto" class="text-primary font-medium hover:text-accent transition-colors text-sm hidden lg:block">
+            Contacto
+          </a>
+          <Button href="/contacto" variant="primary" class="py-2.5 px-5 text-sm">
+            Agendar Diagnóstico
+          </Button>
+        </div>
+      </nav>
+
+      <button class="md:hidden text-primary p-2 hover:bg-primary/5 rounded-md transition-colors" aria-label="Abrir menú">
+        <Menu class="w-6 h-6" />
+      </button>
+
+    </div>
+  </Container>
+</header>

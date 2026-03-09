@@ -1,0 +1,63 @@
+---
+// src/components/sections/ServicesPreview.astro
+import Section from '../ui/Section.astro';
+import Container from '../ui/Container.astro';
+import Card from '../ui/Card.astro';
+import Badge from '../ui/Badge.astro';
+import { Settings, Zap, Database, TrendingUp, ArrowRight } from 'lucide-astro';
+
+// Centralizamos la data. Si en el futuro cambias un servicio, solo editas este array.
+const services = [
+  {
+    title: 'Optimización de Procesos',
+    description: 'Identifico cuellos de botella y rediseño tus flujos de trabajo para máxima eficiencia operativa.',
+    icon: Settings,
+  },
+  {
+    title: 'Automatización Inteligente',
+    description: 'Elimino tareas manuales repetitivas conectando tus herramientas para que trabajen en piloto automático.',
+    icon: Zap,
+  },
+  {
+    title: 'Implementación de Sistemas',
+    description: 'Arquitectura y despliegue de software a medida que escala de forma segura con tu empresa.',
+    icon: Database,
+  },
+  {
+    title: 'Tecnología para Negocios',
+    description: 'Estrategia tecnológica alineada a tus objetivos comerciales para aumentar tu rentabilidad.',
+    icon: TrendingUp,
+  }
+];
+---
+
+<Section class="bg-primary/5 border-y border-primary/10">
+  <Container>
+    
+    <div class="text-center max-w-2xl mx-auto mb-16">
+      <Badge class="mb-4">Áreas de Especialidad</Badge>
+      <h2 class="text-3xl md:text-4xl mb-4 text-primary">Soluciones Tecnológicas Estratégicas</h2>
+      <p class="text-dark/70 text-lg">
+        No solo escribo código, diseño sistemas que resuelven problemas reales de tu negocio y te devuelven tu tiempo.
+      </p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+      {services.map(service => (
+        <Card class="flex flex-col h-full">
+          <div class="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center mb-6 text-primary">
+            <service.icon class="w-6 h-6" />
+          </div>
+          <h3 class="text-xl mb-3 text-primary">{service.title}</h3>
+          <p class="text-dark/70 mb-6 flex-grow leading-relaxed">{service.description}</p>
+          
+          <a href="/servicios" class="inline-flex items-center text-primary font-bold hover:text-accent transition-colors mt-auto group">
+            Saber más 
+            <ArrowRight class="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
+          </a>
+        </Card>
+      ))}
+    </div>
+
+  </Container>
+</Section>

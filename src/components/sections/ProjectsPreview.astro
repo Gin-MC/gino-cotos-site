@@ -1,0 +1,86 @@
+---
+// src/components/sections/ProjectsPreview.astro
+import Section from '../ui/Section.astro';
+import Container from '../ui/Container.astro';
+import Card from '../ui/Card.astro';
+import Badge from '../ui/Badge.astro';
+import Button from '../ui/Button.astro';
+import { ArrowUpRight, FolderGit2 } from 'lucide-astro';
+
+// Data simulada estratégica (enfocada en resultados y tecnología)
+const projects = [
+  {
+    title: 'Automatización Integral de Operaciones',
+    client: 'Startup FinTech',
+    description: 'Reducción del 80% en tiempo de procesamiento manual mediante la integración de flujos de trabajo automatizados y APIs.',
+    tags: ['Automatización', 'Integración API', 'Optimización'],
+    link: '/proyectos/automatizacion-fintech'
+  },
+  {
+    title: 'Sistema Centralizado de Gestión',
+    client: 'Empresa de Logística',
+    description: 'Arquitectura y desarrollo de un panel que unificó 4 herramientas desconectadas, eliminando la pérdida de datos y cuellos de botella.',
+    tags: ['Arquitectura de Sistemas', 'Desarrollo Web', 'Escalabilidad'],
+    link: '/proyectos/sistema-gestion'
+  }
+];
+---
+
+<Section class="bg-light">
+  <Container>
+    
+    <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-16">
+      <div class="max-w-2xl">
+        <Badge class="mb-4">
+          <FolderGit2 class="w-4 h-4" />
+          Casos de Éxito
+        </Badge>
+        <h2 class="text-3xl md:text-4xl mb-4 text-primary">Proyectos que generan impacto</h2>
+        <p class="text-dark/70 text-lg">
+          Resultados medibles a través de la implementación estratégica de tecnología y optimización de procesos.
+        </p>
+      </div>
+      <div class="hidden md:block">
+        <Button href="/proyectos" variant="outline">
+          Ver todos los proyectos
+        </Button>
+      </div>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+      {projects.map(project => (
+        <Card class="group flex flex-col h-full hover:border-accent/50 transition-colors duration-300">
+          
+          <div class="flex flex-wrap gap-2 mb-6">
+            {project.tags.map(tag => (
+              <span class="px-3 py-1 bg-primary/5 text-primary text-xs font-bold rounded-md tracking-wide">
+                {tag}
+              </span>
+            ))}
+          </div>
+          
+          <div class="mb-4">
+            <span class="text-sm font-bold text-accent tracking-wider uppercase mb-2 block">{project.client}</span>
+            <h3 class="text-2xl text-primary mb-3 group-hover:text-accent transition-colors">{project.title}</h3>
+            <p class="text-dark/70 leading-relaxed flex-grow">{project.description}</p>
+          </div>
+          
+          <div class="mt-auto pt-6 border-t border-primary/10">
+            <a href={project.link} class="inline-flex items-center text-primary font-bold hover:text-accent transition-colors">
+              Ver caso de estudio detallado
+              <ArrowUpRight class="w-5 h-5 ml-1 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
+            </a>
+          </div>
+          
+        </Card>
+      ))}
+    </div>
+
+    <div class="mt-10 text-center md:hidden">
+      <Button href="/proyectos" variant="outline" class="w-full">
+        Ver todos los proyectos
+      </Button>
+    </div>
+
+  </Container>
+</Section>

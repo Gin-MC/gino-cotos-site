@@ -1,0 +1,12 @@
+---
+// src/components/ui/Card.astro
+interface Props {
+  class?: string;
+}
+
+const { class: className = '' } = Astro.props;
+---
+
+<div class={`bg-white rounded-xl border border-primary/10 p-6 md:p-8 shadow-sm hover:shadow-md transition-all duration-300 hover:-translate-y-1 ${className}`}>
+  <slot />
+</div>

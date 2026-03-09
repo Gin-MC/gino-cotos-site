@@ -1,0 +1,34 @@
+---
+// src/pages/contenido/[slug].astro
+import { getCollection } from 'astro:content';
+import ArticleLayout from '../../layouts/ArticleLayout.astro';
+
+// 1. Astro ejecuta esto para saber cuántas páginas debe generar
+export async function getStaticPaths() {
+  const tutoriales = await getCollection('tutoriales', ({ data }) => {
+    return data.draft !== true;
+  });
+
+  // Retorna un array con el "slug" (URL) y los "props" (datos) de cada post
+  return tutoriales.map(post => ({
+    params: { slug: post.slug },
+    props: { post },
+  }));
+}
+
+// 2. Obtenemos el post actual basado en la URL
+const { post } = Astro.props;
+
+// 3. Renderizamos el contenido Markdown a HTML
+const { Content } = await post.render();
+---
+
+<ArticleLayout
+  title={post.data.title}
+  description={post.data.description}
+  pubDate={post.data.pubDate}
+  author={post.data.author}
+  tags={post.data.tags}
+>
+  <Content />
+</ArticleLayout>
