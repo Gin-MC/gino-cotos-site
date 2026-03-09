@@ -1,0 +1,192 @@
+---
+// src/pages/proyectos.astro
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Section from '../components/ui/Section.astro';
+import Container from '../components/ui/Container.astro';
+import CTA from '../components/sections/CTA.astro';
+
+// 1. IMPORTAMOS LOS ÍCONOS NECESARIOS (puedes ajustar según tus tecnologías reales)
+import { 
+  Atom,           // Para React
+  Terminal,       // Para Node.js
+  LayoutDashboard,// Para Dashboards
+  Workflow,       // Para n8n
+  MessageSquare,  // Para WhatsApp
+  Database,       // Para Supabase/HubSpot CRM
+  ArrowRightLeft, // Para Webhooks/Integraciones
+  ShoppingCart,   // Para Shopify
+  Network,        // Para Middleware
+  FileText,       // Para Automatización Fiscal
+  CheckCircle2, 
+  TrendingUp, 
+  Layers 
+} from 'lucide-astro';
+
+// 2. ACTUALIZAMOS LA ESTRUCTURA DE DATOS PARA INCLUIR ÍCONOS
+const proyectos = [
+  {
+    title: "Automatización de Flujo Comercial",
+    client: "Agencia Inmobiliaria Premium",
+    image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&q=80&w=1200",
+    challenge: "El equipo de ventas perdía más de 20 horas semanales transcribiendo datos de leads desde campañas publicitarias hacia su CRM. Esta fricción generaba demoras de hasta 4 horas en el primer contacto, enfriando las ventas.",
+    solution: "Diseñé e implementé un ecosistema automatizado que captura los leads en tiempo real, los califica, los asigna al agente adecuado y envía un mensaje de WhatsApp de bienvenida al instante, sin intervención humana.",
+    results: [
+      "Tiempo de respuesta reducido de 4 horas a 5 minutos.",
+      "Ahorro de 4040 horas semanales en todo el equipo.",
+      "Aumento del 35% en la tasa de conversión mensual."
+    ],
+    // Modificamos tags de string a objetos con icono
+    tags: [
+      { name: "n8n", icon: Workflow },
+      { name: "WhatsApp API", icon: MessageSquare },
+      { name: "HubSpot CRM", icon: Database },
+      { name: "Webhooks", icon: ArrowRightLeft }
+    ]
+  },
+  {
+    title: "Panel de Control y ERP a Medida",
+    client: "Startup de Logística B2B",
+    image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&q=80&w=1200",
+    challenge: "Operaban con 15 hojas de cálculo de Excel desconectadas entre sí. La facturación, el control de inventario y el seguimiento de rutas chocaban constantemente, causando errores que costaban miles de dólares al mes.",
+    solution: "Desarrollé un sistema centralizado (ERP ligero) desde cero. Una interfaz limpia donde toda la empresa puede ver el estado de las operaciones en tiempo real, con alertas automatizadas para cuellos de botella.",
+    results: [
+      "Eliminación total de la dependencia de Excel.",
+      "Reducción del 95% en errores de facturación.",
+      "Visibilidad financiera en tiempo real para los fundadores."
+    ],
+    tags: [
+      { name: "React", icon: Atom },
+      { name: "Node.js", icon: Terminal },
+      { name: "Supabase", icon: Database },
+      { name: "Dashboards", icon: LayoutDashboard }
+    ]
+  },
+  {
+    title: "Integración de E-commerce y Contabilidad",
+    client: "Retailer de Electrónica",
+    image: "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?auto=format&fit=crop&q=80&w=1200",
+    challenge: "Su tienda en línea (Shopify) no se comunicaba con su sistema contable local. Dos empleados pasaban sus días enteros emitiendo facturas manualmente una por una por cada compra realizada.",
+    solution: "Construí un puente (middleware) seguro que lee cada transacción de la tienda, valida los impuestos locales y genera la factura electrónica de forma automática, enviándola directo al correo del cliente.",
+    results: [
+      "0 errores de digitación en contabilidad.",
+      "Liberación de 2 empleados para tareas estratégicas.",
+      "Capacidad de procesar miles de ventas en Black Friday sin colapsar."
+    ],
+    tags: [
+      { name: "Shopify API", icon: ShoppingCart },
+      { name: "Middleware", icon: Network },
+      { name: "Automatización Fiscal", icon: FileText }
+    ]
+  }
+];
+---
+
+<BaseLayout 
+  title="Casos de Éxito | Gino Cotos" 
+  description="Descubre cómo mis sistemas y automatizaciones han transformado operaciones manuales en empresas escalables."
+>
+
+  <header class="bg-primary pt-32 pb-20 md:pt-40 md:pb-24 text-light">
+    <Container class="max-w-4xl text-center">
+      <span class="text-accent font-bold tracking-widest uppercase mb-4 text-sm inline-flex items-center gap-2">
+        <TrendingUp class="w-4 h-4" />
+        Casos de Éxito
+      </span>
+      <h1 class="text-5xl md:text-6xl font-heading font-black mb-6 text-light leading-tight">
+        Resultados medibles.<br />
+        <span class="text-accent">Sistemas que escalan.</span>
+      </h1>
+      <p class="text-xl md:text-2xl text-light/80 leading-relaxed font-medium max-w-2xl mx-auto">
+        No te muestro código bonito. Te muestro problemas de negocio reales resueltos mediante estrategia tecnológica y automatización.
+      </p>
+    </Container>
+  </header>
+
+  <Section class="bg-light py-24 md:py-32">
+    <Container class="max-w-7xl">
+      <div class="flex flex-col gap-32">
+        
+        {proyectos.map((proyecto, index) => {
+          // Lógica para saber si es un índice impar (para invertir el orden)
+          const isReversed = index % 2 !== 0;
+
+          return (
+            /* CSS Grid garantiza 2 columnas idénticas y perfectas */
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-start w-full">
+              
+              <div class={`flex flex-col gap-8 w-full ${isReversed ? 'lg:order-2' : 'lg:order-1'}`}>
+                
+                <div class="relative group w-full">
+                  <div class="absolute -inset-4 bg-primary/5 rounded-[2rem] transform -rotate-2 group-hover:rotate-0 transition-transform duration-500 -z-10"></div>
+                  <div class="relative rounded-2xl overflow-hidden shadow-2xl border border-primary/10 aspect-video">
+                    <img 
+                      src={proyecto.image} 
+                      alt={`Mockup del proyecto ${proyecto.title}`} 
+                      class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                      loading="lazy"
+                    />
+                  </div>
+                </div>
+
+                <div class="bg-white rounded-xl p-6 border border-primary/10 shadow-sm w-full relative z-10">
+                  <h3 class="text-sm font-bold text-primary uppercase tracking-widest mb-4">Impacto en el negocio:</h3>
+                  <ul class="space-y-3">
+                    {proyecto.results.map(resultado => (
+                      <li class="flex items-start">
+                        <CheckCircle2 class="w-5 h-5 text-accent mr-3 flex-shrink-0 mt-0.5" />
+                        <span class="text-dark/80 font-medium">{resultado}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+
+
+              </div>
+
+              <div class={`flex flex-col lg:pt-4 w-full ${isReversed ? 'lg:order-1' : 'lg:order-2'}`}>
+                <span class="text-primary/60 font-bold uppercase tracking-wider text-sm mb-3 flex items-center gap-2">
+                  <Layers class="w-4 h-4 text-accent" />
+                  {proyecto.client}
+                </span>
+                
+                <h2 class="text-3xl md:text-4xl font-heading font-bold text-primary mb-8 leading-tight">
+                  {proyecto.title}
+                </h2>
+
+                <div class="space-y-8 mb-12">
+                  <div>
+                    <h3 class="text-xl font-bold text-primary mb-3">El Desafío:</h3>
+                    <p class="text-dark/70 text-lg leading-relaxed">{proyecto.challenge}</p>
+                  </div>
+                  <br>
+                  <div>
+                    <h3 class="text-xl font-bold text-primary mb-3">La Solución:</h3>
+                    <p class="text-dark/70 text-lg leading-relaxed">{proyecto.solution}</p>
+                  </div>
+
+                    <div class="flex flex-wrap gap-3 pt-6 border-t border-primary/10 mt-10">
+                    {proyecto.tags.map(tag => (
+                        <span class="px-4 py-2 bg-primary/5 text-primary text-sm font-bold rounded-full border border-primary/10 flex items-center gap-2">
+                        {/* Renderizado dinámico del icono nativo de Lucide */}
+                        <tag.icon class="w-4 h-4 text-accent" />
+                        {tag.name}
+                        </span>
+                    ))}
+                    </div>
+                
+                </div>
+
+              </div>
+
+            </div>
+        <br>
+          );
+        })}
+
+      </div>
+    </Container>
+  </Section>
+
+  <CTA />
+
+</BaseLayout>

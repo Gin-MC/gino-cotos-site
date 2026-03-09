@@ -1,0 +1,209 @@
+---
+// src/pages/contacto.astro
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Section from '../components/ui/Section.astro';
+import Container from '../components/ui/Container.astro';
+import Card from '../components/ui/Card.astro';
+import { MessageSquare, CalendarCheck, Smartphone, Mail, MapPin, Send, CheckCircle } from 'lucide-astro';
+---
+
+<BaseLayout 
+  title="Contacto y Diagnóstico | Gino Cotos" 
+  description="Solicita tu diagnóstico tecnológico gratuito. Automatización y optimización para startups."
+>
+
+  <Section class="bg-light pt-32 pb-24 md:pt-40 md:pb-32 min-h-screen flex items-center">
+    <Container class="max-w-7xl">
+      
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-24 lg:gap-32 items-start">
+        
+        <div class="flex flex-col pr-0 lg:pr-8">
+          <span class="text-accent font-bold tracking-widest uppercase mb-4 text-sm">Diagnóstico Gratuito</span>
+          <h1 class="text-5xl md:text-6xl font-heading font-bold mb-6 text-primary leading-tight">
+            Hablemos de tu <span class="text-accent">negocio.</span>
+          </h1>
+          
+          <p class="text-xl text-dark/70 leading-relaxed mb-14 max-w-lg">
+            Mi objetivo es entender tus cuellos de botella antes de ofrecerte cualquier solución. Para garantizar la máxima calidad en mi atención, sigo este proceso:
+          </p>
+          <br>
+
+          <div class="space-y-12 mb-16">
+            <div class="flex items-start gap-6">
+              <div class="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center text-primary flex-shrink-0 mt-1">
+                <MessageSquare class="w-6 h-6" />
+              </div>
+              <div>
+                <h3 class="text-xl font-bold text-primary mb-2">1. Solicitud</h3>
+                <p class="text-dark/70 text-lg">Completa el formulario con tus datos básicos. Tomará menos de un minuto.</p>
+              </div>
+            </div>
+
+            <div class="flex items-start gap-6">
+              <div class="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center text-primary flex-shrink-0 mt-1">
+                <Smartphone class="w-6 h-6" />
+              </div>
+              <div>
+                <h3 class="text-xl font-bold text-primary mb-2">2. Contacto Directo</h3>
+                <p class="text-dark/70 text-lg">Te escribiré personalmente por WhatsApp para enviarte unas preguntas clave sobre tu operación actual.</p>
+              </div>
+            </div>
+
+            <div class="flex items-start gap-6">
+              <div class="w-12 h-12 rounded-xl bg-accent/20 flex items-center justify-center text-accent flex-shrink-0 mt-1">
+                <CalendarCheck class="w-6 h-6" />
+              </div>
+              <div>
+                <h3 class="text-xl font-bold text-primary mb-2">3. Sesión Estratégica</h3>
+                <p class="text-dark/70 text-lg">Coordinamos una reunión (virtual o presencial) en un horario flexible que se adapte a ambos.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="pt-10 border-t border-primary/10 flex flex-col sm:flex-row gap-8">
+            <div class="flex items-center text-dark/70 font-medium text-lg">
+              <Mail class="w-6 h-6 text-accent mr-3" />
+              hola@ginocotos.com
+            </div>
+            <div class="flex items-center text-dark/70 font-medium text-lg">
+              <MapPin class="w-6 h-6 text-accent mr-3" />
+              Lima, Perú
+            </div>
+          </div>
+        </div>
+
+        <div class="relative w-full">
+          <div class="absolute -inset-4 bg-primary/5 rounded-3xl transform rotate-2 -z-10 hidden md:block"></div>
+          
+          <Card class="p-8 md:p-12 bg-white shadow-xl border-primary/10 relative z-10">
+            <h2 class="text-2xl font-bold text-primary mb-10">Comencemos el proceso</h2>
+            
+            <form id="contactForm" action="#" method="POST" class="space-y-8">
+              <div class="space-y-3">
+                <label for="nombre" class="text-sm font-bold text-primary uppercase tracking-wide">Nombre Completo</label>
+                <input type="text" id="nombre" name="nombre" required placeholder="Ej. Juan Pérez" class="w-full px-5 py-4 rounded-lg border border-primary/20 bg-light/50 focus:bg-white focus:border-accent focus:ring-2 focus:ring-accent/20 transition-all outline-none text-dark" />
+              </div>
+
+              <div class="space-y-3">
+                <label for="empresa" class="text-sm font-bold text-primary uppercase tracking-wide">Empresa / Startup</label>
+                <input type="text" id="empresa" name="empresa" required placeholder="Nombre de tu negocio" class="w-full px-5 py-4 rounded-lg border border-primary/20 bg-light/50 focus:bg-white focus:border-accent focus:ring-2 focus:ring-accent/20 transition-all outline-none text-dark" />
+              </div>
+
+              <div class="space-y-3">
+                <label for="whatsapp" class="text-sm font-bold text-primary uppercase tracking-wide flex items-center justify-between">
+                  <span>WhatsApp</span>
+                  <span class="text-accent text-xs">Principal medio de contacto</span>
+                </label>
+                <input type="tel" id="whatsapp" name="whatsapp" required pattern="^\+?[0-9\s\-\(\)]{7,20}$" title="Ingresa un número válido. Puede incluir el código de país (Ej: +51 987 654 321)" placeholder="+51 987 654 321" class="w-full px-5 py-4 rounded-lg border border-primary/20 bg-light/50 focus:bg-white focus:border-accent focus:ring-2 focus:ring-accent/20 transition-all outline-none text-dark" />
+              </div>
+
+              <div class="space-y-3">
+                <label for="email" class="text-sm font-bold text-primary uppercase tracking-wide">Correo Electrónico</label>
+                <input type="email" id="email" name="email" required pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$" title="Ingresa un correo electrónico válido (Ej: hola@empresa.com)" placeholder="tu@correo.com" class="w-full px-5 py-4 rounded-lg border border-primary/20 bg-light/50 focus:bg-white focus:border-accent focus:ring-2 focus:ring-accent/20 transition-all outline-none text-dark" />
+              </div>
+
+              <button type="submit" class="w-full bg-primary hover:bg-primary/90 text-light font-bold text-lg py-4 rounded-lg flex items-center justify-center transition-colors group mt-6 cursor-pointer">
+                Solicitar Diagnóstico
+                <Send class="w-5 h-5 ml-2 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
+              </button>
+
+              <p class="text-xs text-dark/50 text-center mt-4">Tus datos están seguros. Cero spam, garantizado.</p>
+            </form>
+          </Card>
+        </div>
+
+      </div>
+    </Container>
+  </Section>
+
+  <dialog id="successModal" class="bg-transparent border-none outline-none p-0">
+    <div class="bg-white rounded-3xl p-8 md:p-12 max-w-md w-[90vw] md:w-full text-center shadow-2xl mx-auto relative">
+      
+      <div class="w-24 h-24 bg-accent/10 rounded-full flex items-center justify-center mx-auto mb-6 text-accent">
+        <CheckCircle class="w-12 h-12" stroke-width="2" />
+      </div>
+      
+      <h3 class="text-3xl font-heading font-bold text-primary mb-4">¡Mensaje Enviado!</h3>
+      <p class="text-dark/70 text-lg mb-8 leading-relaxed">
+        He recibido tu solicitud correctamente. Me pondré en contacto contigo por WhatsApp a la brevedad posible para continuar con el proceso.
+      </p>
+      
+      <button id="closeModalBtn" class="w-full bg-primary hover:bg-primary/90 text-light font-bold text-lg py-4 rounded-lg transition-colors cursor-pointer">
+        Entendido
+      </button>
+      
+    </div>
+  </dialog>
+
+</BaseLayout>
+
+<style>
+  /* 1. Posicionamiento Absoluto al Centro */
+  #successModal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%); /* El truco maestro para centrar */
+    margin: 0;
+  }
+
+  /* 2. El Fondo Desenfoque (Backdrop) a prueba de fallos */
+  #successModal::backdrop {
+    background-color: rgba(15, 23, 42, 0.7); /* Color oscuro semi-transparente */
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px); /* Soporte para Safari */
+  }
+
+  /* 3. Animaciones fluidas */
+  #successModal[open] {
+    animation: modalPop 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
+  
+  #successModal[open]::backdrop {
+    animation: backdropFade 0.3s ease-out forwards;
+  }
+
+  @keyframes modalPop {
+    0% { transform: translate(-50%, -45%) scale(0.95); opacity: 0; }
+    100% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+  }
+
+  @keyframes backdropFade {
+    0% { opacity: 0; }
+    100% { opacity: 1; }
+  }
+</style>
+
+<script>
+  const form = document.getElementById('contactForm') as HTMLFormElement;
+  const modal = document.getElementById('successModal') as HTMLDialogElement;
+  const closeBtn = document.getElementById('closeModalBtn');
+
+  if (form && modal && closeBtn) {
+    
+    // Al enviar el formulario
+    form.addEventListener('submit', (e) => {
+      e.preventDefault(); 
+      modal.showModal();
+      form.reset();
+    });
+
+    // Al darle click a "Entendido"
+    closeBtn.addEventListener('click', () => {
+      modal.close();
+    });
+
+    // Cerrar al hacer clic en la zona borrosa (backdrop)
+    modal.addEventListener('click', (e) => {
+      const dialogDimensions = modal.getBoundingClientRect()
+      if (
+        e.clientX < dialogDimensions.left ||
+        e.clientX > dialogDimensions.right ||
+        e.clientY < dialogDimensions.top ||
+        e.clientY > dialogDimensions.bottom
+      ) {
+        modal.close();
+      }
+    });
+  }
+</script>
