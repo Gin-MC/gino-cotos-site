@@ -7,29 +7,56 @@ import Footer from '../components/navigation/Footer.astro';
 interface Props {
   title: string;
   description?: string;
+  image?: string; // Añadimos la propiedad opcional para la imagen de redes sociales
 }
 
 const { 
   title, 
-  description = "Estratega tecnológico. Optimización y automatización de procesos para empresas emergentes." 
+  description = "Estratega tecnológico. Optimización y automatización de procesos para empresas emergentes.",
+  image = "/og-image.jpg" // Definimos una imagen por defecto en la carpeta public/
 } = Astro.props;
+
+// Construimos las URLs absolutas para SEO y Redes Sociales
+// NOTA: Reemplaza "https://ginocotos.com" con tu dominio real cuando compres el .com
+const siteUrl = Astro.site || 'https://ginocotos.com';
+const canonicalURL = new URL(Astro.url.pathname, siteUrl);
+const imageUrl = new URL(image, siteUrl);
 ---
 
 <!doctype html>
-<html lang="es">
+<html lang="es" class="scroll-smooth">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="generator" content={Astro.generator} />
+    
     <title>{title} | Gino Cotos</title>
+    <meta name="title" content={`${title} | Gino Cotos`} />
     <meta name="description" content={description} />
+    <meta name="author" content="Gino Cotos" />
+    <link rel="canonical" href={canonicalURL} />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonicalURL} />
+    <meta property="og:title" content={`${title} | Gino Cotos`} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={imageUrl} />
+
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:url" content={canonicalURL} />
+    <meta property="twitter:title" content={`${title} | Gino Cotos`} />
+    <meta property="twitter:description" content={description} />
+    <meta property="twitter:image" content={imageUrl} />
+    
+    <meta name="theme-color" content="#0F172A" />
   </head>
-  <body class="min-h-screen flex flex-col">
+  
+  <body class="min-h-screen flex flex-col selection:bg-accent selection:text-white">
     
     <Navbar />
     
-    <main class="flex-grow">
+    <main class="flex-grow w-full overflow-hidden">
       <slot />
     </main>
 

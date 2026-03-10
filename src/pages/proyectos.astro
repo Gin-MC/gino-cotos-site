@@ -32,7 +32,7 @@ const proyectos = [
     solution: "Diseñé e implementé un ecosistema automatizado que captura los leads en tiempo real, los califica, los asigna al agente adecuado y envía un mensaje de WhatsApp de bienvenida al instante, sin intervención humana.",
     results: [
       "Tiempo de respuesta reducido de 4 horas a 5 minutos.",
-      "Ahorro de 4040 horas semanales en todo el equipo.",
+      "Ahorro de 4 horas semanales en todo el equipo.",
       "Aumento del 35% en la tasa de conversión mensual."
     ],
     // Modificamos tags de string a objetos con icono
@@ -158,13 +158,12 @@ const proyectos = [
                     <h3 class="text-xl font-bold text-primary mb-3">El Desafío:</h3>
                     <p class="text-dark/70 text-lg leading-relaxed">{proyecto.challenge}</p>
                   </div>
-                  <br>
                   <div>
                     <h3 class="text-xl font-bold text-primary mb-3">La Solución:</h3>
                     <p class="text-dark/70 text-lg leading-relaxed">{proyecto.solution}</p>
                   </div>
 
-                    <div class="flex flex-wrap gap-3 pt-6 border-t border-primary/10 mt-10">
+                    <div class="flex flex-wrap gap-3 pt-6 border-t border-primary/10">
                     {proyecto.tags.map(tag => (
                         <span class="px-4 py-2 bg-primary/5 text-primary text-sm font-bold rounded-full border border-primary/10 flex items-center gap-2">
                         {/* Renderizado dinámico del icono nativo de Lucide */}
@@ -179,7 +178,6 @@ const proyectos = [
               </div>
 
             </div>
-        <br>
           );
         })}
 

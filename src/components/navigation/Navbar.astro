@@ -1,51 +1,112 @@
 ---
-// src/components/navigation/Navbar.astro
-import Container from '../ui/Container.astro';
-import Button from '../ui/Button.astro';
-import { Menu } from 'lucide-astro';
+// Importamos los iconos
+import { Menu, X } from 'lucide-astro';
 
-// Centralizamos las rutas para fácil mantenimiento
+// Importamos tu logo desde la carpeta assets
+import logo from '../../assets/logo.png';
+
+// Obtenemos la URL actual para marcar la página activa
+const pathname = Astro.url.pathname;
+
+// Arreglo de navegación
 const navLinks = [
-  { name: 'Servicios', href: '/servicios' },
-  { name: 'Proyectos', href: '/proyectos' },
-  { name: 'Tutoriales', href: '/contenido' },
-  { name: 'Sobre mí', href: '/sobre-mi' },
+  { name: 'Inicio', url: '/' },
+  { name: 'Servicios', url: '/servicios' },
+  { name: 'Proyectos', url: '/proyectos' },
+  { name: 'Sobre mí', url: '/sobre-mi' },
+  { name: 'Tutoriales', url: '/contenido/' }, 
 ];
 ---
 
-<header class="sticky top-0 z-50 w-full bg-light/90 backdrop-blur-md border-b border-primary/10 transition-all duration-300">
-  <Container>
-    <div class="flex items-center justify-between h-20">
+<header class="fixed w-full top-0 z-50 bg-white/90 backdrop-blur-md border-b border-primary/10 transition-all duration-300" id="navbar">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex justify-between items-center h-20">
       
-      <a href="/" class="font-heading font-bold text-2xl text-primary tracking-tight">
-        Gino<span class="text-accent">.</span>
+      <a href="/" class="flex-shrink-0 flex items-center gap-2 group">
+        <img 
+          src={logo.src} 
+          alt="Gino Cotos Logo" 
+          class="h-10 w-auto group-hover:scale-105 transition-transform duration-300" 
+        />
       </a>
 
-      <nav class="hidden md:flex items-center gap-8">
-        <ul class="flex items-center gap-6">
-          {navLinks.map(link => (
-            <li>
-              <a href={link.href} class="text-dark/80 hover:text-primary font-medium transition-colors text-sm">
-                {link.name}
-              </a>
-            </li>
-          ))}
+      <nav class="hidden lg:flex items-center gap-8">
+        <ul class="flex gap-8">
+          {navLinks.map(link => {
+            const currentPath = pathname.replace(/\/$/, "");
+            const linkUrl = link.url.replace(/\/$/, "");
+            const isActive = currentPath === linkUrl || (linkUrl === "" && currentPath === "");
+
+            return (
+              <li>
+                <a 
+                  href={link.url} 
+                  class={`relative font-bold text-sm uppercase tracking-wider py-2 transition-colors duration-300 hover:text-accent group ${isActive ? 'text-accent' : 'text-primary'}`}
+                >
+                  {link.name}
+                  <span class={`absolute left-0 -bottom-1 w-full h-0.5 bg-accent transition-transform duration-300 origin-left ${isActive ? 'scale-x-100' : 'scale-x-0 group-hover:scale-x-100'}`}></span>
+                </a>
+              </li>
+            )
+          })}
         </ul>
-        
-        <div class="flex items-center gap-4 border-l border-primary/20 pl-6">
-          <a href="/contacto" class="text-primary font-medium hover:text-accent transition-colors text-sm hidden lg:block">
-            Contacto
-          </a>
-          <Button href="/contacto" variant="primary" class="py-2.5 px-5 text-sm">
-            Agendar Diagnóstico
-          </Button>
-        </div>
+
+        <a href="/contacto" class="px-6 py-2.5 bg-primary text-white font-bold rounded-lg hover:bg-accent transition-colors duration-300 shadow-sm hover:shadow-md">
+          Contactar
+        </a>
       </nav>
 
-      <button class="md:hidden text-primary p-2 hover:bg-primary/5 rounded-md transition-colors" aria-label="Abrir menú">
-        <Menu class="w-6 h-6" />
-      </button>
+      <div class="lg:hidden flex items-center">
+        <button id="mobile-menu-btn" class="text-primary hover:text-accent transition-colors p-2 focus:outline-none" aria-label="Abrir menú">
+          <Menu class="w-8 h-8" id="menu-icon-open" />
+          <X class="w-8 h-8 hidden" id="menu-icon-close" />
+        </button>
+      </div>
 
     </div>
-  </Container>
+  </div>
+
+  <div id="mobile-menu" class="lg:hidden absolute top-20 left-0 w-full bg-white border-b border-primary/10 shadow-2xl hidden flex-col">
+    <ul class="flex flex-col px-6 pt-4 pb-8 space-y-2">
+      {navLinks.map(link => {
+        const currentPath = pathname.replace(/\/$/, "");
+        const linkUrl = link.url.replace(/\/$/, "");
+        const isActive = currentPath === linkUrl || (linkUrl === "" && currentPath === "");
+
+        return (
+          <li>
+            <a 
+              href={link.url} 
+              class={`block text-lg font-bold px-4 py-3 rounded-xl transition-all ${isActive ? 'bg-primary/5 text-accent pl-6 border-l-4 border-accent' : 'text-primary hover:bg-primary/5 hover:text-accent'}`}
+            >
+              {link.name}
+            </a>
+          </li>
+        )
+      })}
+      <li class="pt-4">
+        <a href="/contacto" class="block text-center w-full px-6 py-4 bg-primary text-white font-bold text-lg rounded-xl hover:bg-accent transition-colors shadow-sm">
+          Contactar
+        </a>
+      </li>
+    </ul>
+  </div>
 </header>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const btn = document.getElementById('mobile-menu-btn');
+    const menu = document.getElementById('mobile-menu');
+    const iconOpen = document.getElementById('menu-icon-open');
+    const iconClose = document.getElementById('menu-icon-close');
+
+    if (btn && menu && iconOpen && iconClose) {
+      btn.addEventListener('click', () => {
+        menu.classList.toggle('hidden');
+        menu.classList.toggle('flex');
+        iconOpen.classList.toggle('hidden');
+        iconClose.classList.toggle('hidden');
+      });
+    }
+  });
+</script>
