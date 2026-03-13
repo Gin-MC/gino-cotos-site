@@ -1,7 +1,7 @@
-// @ts-check
 import { defineConfig } from 'astro/config';
 import tailwindcss from '@tailwindcss/vite';
-import node from '@astrojs/node';
+// 1. IMPORTAMOS EL ADAPTADOR DE VERCEL
+import vercel from '@astrojs/vercel/serverless';
 
 // https://astro.build/config
 export default defineConfig({
@@ -9,7 +9,6 @@ export default defineConfig({
     plugins: [tailwindcss()]
   },
   output: 'server',
-  adapter: node({
-    mode: 'standalone'
-  }),
+  // 2. USAMOS VERCEL COMO MOTOR
+  adapter: vercel(),
 });
