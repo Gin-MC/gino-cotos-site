@@ -174,25 +174,67 @@ import { MessageSquare, CalendarCheck, Smartphone, Mail, MapPin, Send, CheckCirc
 </style>
 
 <script>
+  // Obtenemos las referencias del DOM
   const form = document.getElementById('contactForm') as HTMLFormElement;
   const modal = document.getElementById('successModal') as HTMLDialogElement;
   const closeBtn = document.getElementById('closeModalBtn');
+  // Referencia al botón de submit para cambiar su estado
+  const submitBtn = form?.querySelector('button[type="submit"]') as HTMLButtonElement;
 
-  if (form && modal && closeBtn) {
+  if (form && modal && closeBtn && submitBtn) {
     
-    // Al enviar el formulario
-    form.addEventListener('submit', (e) => {
-      e.preventDefault(); 
-      modal.showModal();
-      form.reset();
+    // 1. Almacenamos el contenido original del botón
+    const originalBtnContent = submitBtn.innerHTML;
+
+    // 2. Interceptamos el envío del formulario
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault(); // Evitamos que la página recargue
+
+      // A. Estado de carga visual (UX Premium)
+      submitBtn.disabled = true;
+      submitBtn.innerHTML = `
+        Enviando...
+        <svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-white inline ml-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+          <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+          <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+        </svg>
+      `;
+
+      // B. Recopilamos los datos
+      const formData = new FormData(form);
+
+      try {
+        // C. Enviamos la petición a nuestro Endpoint de Resend
+        const response = await fetch('/api/enviar', {
+          method: 'POST',
+          body: formData,
+        });
+
+        if (response.ok) {
+          // ÉXITO: Mostramos el modal y limpiamos el formulario
+          modal.showModal();
+          form.reset();
+        } else {
+          // ERROR DEL SERVIDOR
+          throw new Error('La respuesta del servidor no fue exitosa.');
+        }
+      } catch (error) {
+        // MANEJO DE ERRORES (Fallo de red, API caída, etc.)
+        alert('Hubo un problema al conectar con el servidor. Por favor, inténtalo de nuevo o contáctame por WhatsApp.');
+        console.error('Error al enviar el formulario:', error);
+      } finally {
+        // D. Restauramos el botón sin importar el resultado
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = originalBtnContent;
+      }
     });
 
-    // Al darle click a "Entendido"
+    // 3. Al darle click a "Entendido" en el modal
     closeBtn.addEventListener('click', () => {
       modal.close();
     });
 
-    // Cerrar al hacer clic en la zona borrosa (backdrop)
+    // 4. Cerrar al hacer clic en la zona borrosa (backdrop)
     modal.addEventListener('click', (e) => {
       const dialogDimensions = modal.getBoundingClientRect()
       if (

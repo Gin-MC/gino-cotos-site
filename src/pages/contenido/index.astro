@@ -29,28 +29,41 @@ const formatearFecha = (fecha: Date) => {
 ---
 
 <BaseLayout 
-  title="Tutoriales Técnicos" 
+  title="Tutoriales Técnicos | Gino Cotos" 
   description="Aprende a automatizar procesos e implementar sistemas eficientes en tu empresa con los tutoriales técnicos de Gino Cotos."
 >
   
-  <header class="bg-primary pt-32 pb-20 text-light border-b border-primary/20">
+  <header class="bg-primary pt-32 pb-16 md:pt-40 md:pb-24 text-light overflow-hidden relative border-b border-primary/20">
     <Container>
-      <div class="max-w-3xl">
-        <Badge class="mb-6 bg-light/10 text-accent border-none">
-          <BookOpen class="w-4 h-4" />
-          Recursos Gratuitos
-        </Badge>
-        <h1 class="text-4xl md:text-5xl lg:text-6xl font-heading font-bold mb-6 leading-tight">
-          Tutoriales y Estrategia <span class="text-accent">Tecnológica</span>
-        </h1>
-        <p class="text-lg text-light/80 leading-relaxed max-w-2xl">
-          Guías paso a paso, arquitecturas de sistemas y tácticas de automatización para fundadores y equipos técnicos que buscan escalar sin fricción.
-        </p>
+      <div class="flex flex-col md:flex-row items-center justify-between gap-12 relative z-10">
+        
+        <div class="max-w-3xl w-full">
+          <Badge class="mb-6 bg-light/10 text-accent border-none inline-flex">
+            <BookOpen class="w-4 h-4 mr-2" />
+            Recursos Gratuitos
+          </Badge>
+
+          <h1 class="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-heading font-black mb-6 text-light tracking-tight uppercase leading-none break-words">
+            Tutoriales<span class="text-accent">.</span>
+          </h1>
+          
+          <p class="text-xl md:text-2xl text-light/80 leading-relaxed font-medium max-w-2xl">
+            Guías paso a paso, arquitecturas de sistemas y tácticas de automatización para fundadores y equipos técnicos que buscan escalar sin fricción.
+          </p>
+        </div>
+
+        <div class="hidden md:flex justify-center items-center w-full md:w-auto pr-10">
+          <div class="relative flex items-center justify-center animate-float">
+            <div class="absolute inset-0 bg-accent/20 rounded-full blur-3xl w-40 h-40"></div>
+            <BookOpen class="w-40 h-40 text-accent opacity-90 drop-shadow-2xl" stroke-width="1.5" />
+          </div>
+        </div>
+
       </div>
     </Container>
   </header>
 
-  <Section class="bg-light bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] [background-size:16px_16px]">
+  <Section class="bg-light py-24 bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] [background-size:16px_16px]">
     <Container>
       
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -97,3 +110,15 @@ const formatearFecha = (fecha: Date) => {
   </Section>
 
 </BaseLayout>
+
+<style>
+  .animate-float {
+    animation: float 6s ease-in-out infinite;
+  }
+  
+  @keyframes float {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-15px); }
+    100% { transform: translateY(0px); }
+  }
+</style>
